@@ -6,7 +6,7 @@
 /*   By: kalmheir <kalmheir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:17:01 by kalmheir          #+#    #+#             */
-/*   Updated: 2022/02/21 02:56:51 by kalmheir         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:58:53 by kalmheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,24 @@
  *	fd: Pointer to the file descriptor to be added
  *	buffer: Pointer to the new buffer created
  */
-t_fd_map	*fd_lstnew(int *fd, void *buffer)
+t_fd_map	*fd_lstnew(int *fd)
 {
 	t_fd_map	*result;
+	char		*buff;
+	int			i;
 
+	i = 0;
 	result = malloc(sizeof(t_fd_map));
 	if (!result)
 		return (0);
-	result->buffer = buffer;
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (0);
+	while (i < BUFFER_SIZE + 1)
+		buff[i++] = 0;
+	result->buffer = buff;
 	result->next = 0;
+	result->prev = 0;
 	result->fd = fd;
 	return (result);
 }
@@ -122,10 +131,14 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
  *	lst: Pointer to the head of the list
  *	new: Node to be added to the list
  */
-void	fd_lstadd_front(t_fd_map **lst, t_fd_map *new)
+void	fd_lstadd_front(t_fd_map **lst, int *fd)
 {
-	if (!lst)
+	t_fd_map	*new;
+
+	new = fd_lstnew(fd);
+	if (!new || !lst)
 		return ;
+	(*lst)->prev = new;
 	new->next = *lst;
 	*lst = new;
 }
