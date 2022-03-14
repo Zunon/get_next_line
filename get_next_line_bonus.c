@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kalmheir <kalmheir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:17:04 by kalmheir          #+#    #+#             */
-/*   Updated: 2022/02/21 08:10:17 by kalmheir         ###   ########.fr       */
+/*   Updated: 2022/03/15 00:34:20 by kalmheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*
  *	Function: ft_strjoin2
@@ -136,6 +136,8 @@ char	*get_next_line(int fd)
 	char			*newline;
 	int				nullloc;
 
+	if (read(fd, 0, 0) < 0)
+		return (0);
 	current = get_fd(fd, &fd_list);
 	result = malloc(1);
 	if (!result || !current)
