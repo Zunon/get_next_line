@@ -6,7 +6,7 @@
 /*   By: kalmheir <kalmheir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 12:17:04 by kalmheir          #+#    #+#             */
-/*   Updated: 2022/03/15 00:34:20 by kalmheir         ###   ########.fr       */
+/*   Updated: 2022/03/15 00:43:10 by kalmheir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,9 @@ char	*get_next_line(int fd)
 	char			*newline;
 	int				nullloc;
 
-	if (read(fd, 0, 0) < 0)
-		return (0);
 	current = get_fd(fd, &fd_list);
 	result = malloc(1);
-	if (!result || !current)
+	if (!result || !current || read(fd, 0, 0) < 0)
 	{
 		free(result);
 		return (0);
